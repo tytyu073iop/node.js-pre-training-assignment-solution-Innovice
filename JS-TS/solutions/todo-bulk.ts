@@ -1,7 +1,7 @@
 import { Todo, TodoStatus } from './types';
 
 export function toggleAll(state: Todo[], completed: boolean): Todo[] {
-  let arr: Todo[] = JSON.parse(JSON.stringify(state));
+  let arr: Todo[] = structuredClone(state);
   return arr.map((todo) => {
     todo.status = completed ? TodoStatus.COMPLETED : TodoStatus.PENDING; 
     return todo;

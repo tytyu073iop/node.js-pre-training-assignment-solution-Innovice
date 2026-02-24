@@ -1,13 +1,13 @@
 import { Todo } from './types';
 
 export function addTodo(state: Todo[], todo: Todo): Todo[] {
-  let arr: Todo[] = JSON.parse(JSON.stringify(state));
+  let arr: Todo[] = structuredClone(state);
   arr.push(todo);
   return arr;
 }
 
 export function updateTodo(state: Todo[], id: number, update: Partial<Omit<Todo, 'id' | 'createdAt'>>): Todo[] {
-  let arr: Todo[] = JSON.parse(JSON.stringify(state));
+  let arr: Todo[] = structuredClone(state);
   let req = arr.find((t) => t.id == id);
   if (req == null) {
     throw new Error("Cannot find todo with id");

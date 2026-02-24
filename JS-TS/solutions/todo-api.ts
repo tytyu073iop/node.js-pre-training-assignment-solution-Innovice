@@ -5,18 +5,22 @@ export class TodoApi {
   private repo = new InMemoryRepository<Todo>();
 
   async getAll(): Promise<Todo[]> {
-    throw new Error('getAll: not implemented');
+    await new Promise((resolve) => setTimeout(resolve, 400))
+    return this.repo.findAll();
   }
 
-  async add(newTodo: NewTodo): Promise<Todo> {
-    throw new Error('add: not implemented');
+  async add(newTodo: Partial<NewTodo>): Promise<Todo> {
+    await new Promise((resolve) => setTimeout(resolve, 400));
+    return this.repo.add(newTodo as Todo);
   }
 
   async update(id: number, update: Partial<Omit<Todo, 'id' | 'createdAt'>>): Promise<Todo> {
-    throw new Error('update: not implemented');
+    await new Promise((resolve) => setTimeout(resolve, 400));
+    return this.repo.update(id, update);
   }
 
   async remove(id: number): Promise<void> {
-    throw new Error('remove: not implemented');
+    await new Promise((resolve) => setTimeout(resolve, 400));
+    return this.repo.remove(id);
   }
 }

@@ -3,22 +3,35 @@ export class InMemoryRepository<T extends { id: number }> {
   private items: T[] = [];
 
   add(entity: T): T {
-    throw new Error('add: not implemented');
+    this.items.push(entity);
+    return structuredClone(entity);
   }
 
   update(id: number, patch: Partial<T>): T {
-    throw new Error('update: not implemented');
+    let item = this.items.find((val) => val.id === id)
+    if (item == null) {
+      throw new Error('No item with this id');
+
+    }
+
+    for (const key in patch) {
+      if (patch[key] != null) {
+        item[key] = patch[key];
+      }
+    }
+
+    return structuredClone(item);
   }
 
   remove(id: number): void {
-    throw new Error('remove: not implemented');
+    this.items = this.items.filter((val) => val.id != id);
   }
 
   findById(id: number): T | undefined {
-    throw new Error('findById: not implemented');
+    return structuredClone(this.items.find((val) => val.id === id));
   }
 
   findAll(): T[] {
-    throw new Error('findAll: not implemented');
+    return structuredClone(this.items);
   }
 }
