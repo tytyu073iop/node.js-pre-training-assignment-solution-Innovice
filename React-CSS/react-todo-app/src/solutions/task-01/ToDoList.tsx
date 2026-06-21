@@ -41,9 +41,11 @@ export const ToDoList: React.FC<TodoListProps> = ({ todos }) => {
 
   return (
     <div>
-      {/* TODO: Replace this with your implementation */}
       <h3>Todo List</h3>
-      <p>Implement the ToDoList component here</p>
+      {/*TODO: refactor*/}
+      {todos.length === 0 ? <p>Your list is empty. Add a new task!</p> : <ol>{todos.map(todo => 
+        <li key={todo.id}>{todo.title}{todo.completed && <span style={{color: "green"}}> &#10004;</span>}</li>
+      )}</ol>}
     </div>
   );
 }; 
