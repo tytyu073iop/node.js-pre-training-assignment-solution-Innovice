@@ -23,5 +23,8 @@ Create a functional React component called `ToDoList` that accepts an array of t
 
 **Theoretical Questions:**
 1. What is the difference between functional and class components in React?
+wther defined by class or function
 2. Why is it important to use the `key` prop when rendering lists in React?
+So react knows which element to update
 3. What are props in React and how do they enable component communication? 
+Arguments to component, because it is like arguments
