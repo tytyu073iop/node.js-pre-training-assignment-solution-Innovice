@@ -23,5 +23,8 @@ Create a component `ToDoItem` that accepts a todo object as a prop and displays 
 
 **Theoretical Questions:**
 1. How do you destructure props in React functional components?
+by ``` {propName} ```
 2. What is the difference between controlled and uncontrolled components?
+controlled is useState uncontrolled no (controlled by DOM)
 3. How can you conditionally render content in React components? 
+by conditions in ``` {} ``` like ``` && || { ? :} ```

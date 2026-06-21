@@ -48,9 +48,9 @@ export const ToDoItem: React.FC<TodoItemProps> = ({ todo }) => {
 
   return (
     <div>
-      {/* TODO: Replace this with your implementation */}
+      {/* TODO: Refactor */}
       <h4>ToDo Item Component</h4>
-      <p>Implement conditional rendering here</p>
+      <p style={{color: todo.completed ? "green" : "red"}}>{todo.title}{todo.completed && <span style={{color: "green"}}> &#10004;</span>}</p>
     </div>
   );
 }; 
