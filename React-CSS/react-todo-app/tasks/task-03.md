@@ -24,5 +24,8 @@ Create a component with a button and an input. Typing a title and clicking the b
 
 **Theoretical Questions:**
 1. What is the useState hook and how does it work?
+for states (variables which affects UI) react automatically updates after setState
 2. How do you update state in React functional components?
+setState
 3. What is the difference between state and props in React? 
+Props -> parent - child, state - inner.

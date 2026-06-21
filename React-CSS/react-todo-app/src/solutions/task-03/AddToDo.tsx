@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Todo } from '../../types';
+import { ToDoList } from '../task-01/ToDoList';
 
 /**
  * Task 3: AddToDo Component
@@ -48,11 +49,42 @@ export const AddToDo: React.FC = () => {
   // const [inputValue, setInputValue] = useState('');
   // const [todos, setTodos] = useState<Todo[]>([]);
 
+  const [title, setTitle] = useState<string>('');
+  const [todos, setTodos] = useState<Todo[]>([]);
+  let counter = 0;
+
+  function addTodo(title: string) {
+    let todo : Todo = {id: counter++, title, completed : false};
+    setTodos(pre => [...pre, todo]);
+  }
+
+  function handleInput(event: React.ChangeEvent<HTMLInputElement>) {
+    setTitle(event.target.value);
+  }
+
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+
+    if (title === '') {
+      return;
+    }
+
+    addTodo(title);
+
+    setTitle('');
+  }
+
   return (
     <div>
       {/* TODO: Replace this with your implementation */}
       <h4>Add ToDo Component</h4>
-      <p>Implement useState and form handling here</p>
+      <form onSubmit={handleSubmit}>
+        <label>Todo: 
+          <input type='text' value={title} onChange={handleInput}/>
+        </label>
+        <button type="submit">Add</button>
+      </form>
+      <ToDoList todos={todos} />
     </div>
   );
 }; 
