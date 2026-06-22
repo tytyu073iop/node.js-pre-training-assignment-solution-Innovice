@@ -2,11 +2,11 @@ import { Todo, NewTodo, TodoStatus } from './types';
 
 let nextId = 1;
 
-export function createTodo(input: Partial<NewTodo>): Todo {
+export function createTodo(todo: NewTodo): Todo {
   let copy: Todo = { 
-    title: input.title || '',
-    description: input.description || '',
-    status: TodoStatus.PENDING,
+    title: todo.title,
+    description: todo.description ?? '',
+    status: todo.status ?? TodoStatus.PENDING,
     id: nextId++,
     createdAt: new Date()
   };
