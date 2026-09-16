@@ -65,7 +65,7 @@ export const CompleteToDoList: React.FC = () => {
 
   function addTodo(title: string) {
     let todo: Todo = { id: counter, title, completed: false };
-    setCounter(counter + 1);
+    setCounter((previousCount) => previousCount + 1);
     setTodos((pre) => [...pre, todo]);
   }
 
