@@ -1,5 +1,6 @@
 import React from 'react';
 import { TodoListProps } from '../../types';
+import { ToDoItem } from '../task-02/ToDoItem';
 
 /**
  * Task 1: ToDoList Component
@@ -43,9 +44,10 @@ export const ToDoList: React.FC<TodoListProps> = ({ todos }) => {
     <div>
       <h3>Todo List</h3>
       {/*TODO: refactor*/}
-      {todos.length === 0 ? <p>Your list is empty. Add a new task!</p> : <ol>{todos.map(todo => 
-        <li key={todo.id}>{todo.title}{todo.completed && <span style={{color: "green"}}> &#10004;</span>}</li>
-      )}</ol>}
+      {todos.length === 0 ?
+        <p>Your list is empty. Add a new task!</p> :
+        <ol>{todos.map(todo => <ToDoItem key={todo.id} todo={todo}></ToDoItem>)}</ol>
+      }
     </div>
   );
 }; 

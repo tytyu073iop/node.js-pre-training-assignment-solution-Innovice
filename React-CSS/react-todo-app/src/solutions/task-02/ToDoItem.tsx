@@ -49,8 +49,7 @@ export const ToDoItem: React.FC<TodoItemProps> = ({ todo }) => {
   return (
     <div>
       {/* TODO: Refactor */}
-      <h4>ToDo Item Component</h4>
-      <p style={{color: todo.completed ? "green" : "red"}}>{todo.title}{todo.completed && <span style={{color: "green"}}> &#10004;</span>}</p>
+      <div style={{color: todo.completed ? "green" : "red"}}>{todo.title + ' ' + todo.id}{todo.completed && <span style={{color: "green"}}> &#10004;</span>}</div>
     </div>
   );
 }; 

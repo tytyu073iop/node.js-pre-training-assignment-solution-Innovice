@@ -51,10 +51,11 @@ export const AddToDo: React.FC = () => {
 
   const [title, setTitle] = useState<string>('');
   const [todos, setTodos] = useState<Todo[]>([]);
-  let counter = 0;
+  let [counter, setCounter] = useState<number>(0);
 
   function addTodo(title: string) {
-    let todo : Todo = {id: counter++, title, completed : false};
+    let todo: Todo = { id: counter, title, completed: false };
+    setCounter(counter + 1);
     setTodos(pre => [...pre, todo]);
   }
 
@@ -76,8 +77,6 @@ export const AddToDo: React.FC = () => {
 
   return (
     <div>
-      {/* TODO: Replace this with your implementation */}
-      <h4>Add ToDo Component</h4>
       <form onSubmit={handleSubmit}>
         <label>Todo: 
           <input type='text' value={title} onChange={handleInput}/>
