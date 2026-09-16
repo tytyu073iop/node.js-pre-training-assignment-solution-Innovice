@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Todo } from "../../types";
 import { ToDoItem } from "../task-02/ToDoItem";
+import { AddToDo } from "../task-03/AddToDo";
 
 /**
  * Task 4: CompleteToDoList Component
@@ -59,35 +60,17 @@ export const CompleteToDoList: React.FC = () => {
   // };
   //
   const [todos, setTodos] = useState<Todo[]>([]);
-  const [title, setTitle] = useState<string>("");
 
-  let [counter, setCounter] = useState<number>(0);
-
-  function addTodo(title: string) {
-    let todo: Todo = { id: counter, title, completed: false };
-    setCounter((previousCount) => previousCount + 1);
-    setTodos((pre) => [...pre, todo]);
-  }
-
-  function handleInput(event: React.ChangeEvent<HTMLInputElement>) {
-    setTitle(event.target.value);
-  }
-
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-
-    if (title === "") {
-      return;
-    }
-
-    addTodo(title);
-
-    setTitle("");
+  function handleAdd(title: string) {
+    setTodos((prev) => [
+      ...prev,
+      { id: prev.length + 1, title, completed: false },
+    ]);
   }
 
   function onToggleTodo(id: number): void {
-    setTodos(
-      todos.map((todo) =>
+    setTodos((prev) =>
+      prev.map((todo) =>
         todo.id === id ? { ...todo, completed: !todo.completed } : todo,
       ),
     );
@@ -95,45 +78,32 @@ export const CompleteToDoList: React.FC = () => {
 
   return (
     <div>
-      {/* TODO: Replace this with your implementation */}
-      <h4>Complete ToDo List Component</h4>
-      <div>
-        <form onSubmit={handleSubmit}>
-          <label>
-            Todo:
-            <input type="text" value={title} onChange={handleInput} />
-          </label>
-          <button type="submit">Add</button>
-        </form>
-      </div>
-      <div>
-        <h3>Todo List</h3>
-        {/*TODO: refactor*/}
-        {todos.length === 0 ? (
-          <p>Your list is empty. Add a new task!</p>
-        ) : (
-          <ol>
-            {todos.map((todo) => (
-              <li
-                key={todo.id}
-                style={{
-                  listStyle: "none",
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "10px",
-                  marginBottom: "8px",
-                  justifyContent: "center",
-                }}
-              >
-                <ToDoItem todo={todo}></ToDoItem>{" "}
-                <button onClick={() => onToggleTodo(todo.id)}>
-                  {todo.completed ? "Complete" : "Incomplete"}
-                </button>
-              </li>
-            ))}
-          </ol>
-        )}
-      </div>
+      <AddToDo onAdd={handleAdd} />
+      <h3>Todo List</h3>
+      {todos.length === 0 ? (
+        <p>Your list is empty.</p>
+      ) : (
+        <ol>
+          {todos.map((todo) => (
+            <li
+              key={todo.id}
+              style={{
+                listStyle: "none",
+                display: "flex",
+                alignItems: "center",
+                gap: "10px",
+                marginBottom: "8px",
+                justifyContent: "center",
+              }}
+            >
+              <ToDoItem todo={todo}></ToDoItem>{" "}
+              <button onClick={() => onToggleTodo(todo.id)}>
+                {todo.completed ? "Completed" : "Complete"}
+              </button>
+            </li>
+          ))}
+        </ol>
+      )}
     </div>
   );
 };

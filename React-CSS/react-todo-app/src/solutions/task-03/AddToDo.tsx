@@ -35,7 +35,11 @@ import { ToDoList } from '../task-01/ToDoList';
  * - Use controlled components for form inputs
  * - Handle form submission properly
  */
-export const AddToDo: React.FC = () => {
+interface AddToDoProps {
+  onAdd?: (title: string) => void;
+}
+
+export const AddToDo: React.FC<AddToDoProps> = ({ onAdd }) => {
   // TODO: Implement the AddToDo component
   // 
   // Requirements:
@@ -45,18 +49,18 @@ export const AddToDo: React.FC = () => {
   // 4. Clear the input after adding a todo
   // 5. Don't add empty todos
   // 
-  // Example implementation:
-  // const [inputValue, setInputValue] = useState('');
-  // const [todos, setTodos] = useState<Todo[]>([]);
+  // When `onAdd` is provided, the component delegates adding to the parent
+  // (lifted state, used by tasks 4/5). Without it, it manages its own list
+  // and renders it (standalone mode, used by task 3).
 
   const [title, setTitle] = useState<string>('');
   const [todos, setTodos] = useState<Todo[]>([]);
-  let [counter, setCounter] = useState<number>(0);
+  const [counter, setCounter] = useState<number>(0);
 
-  function addTodo(title: string) {
-    let todo: Todo = { id: counter, title, completed: false };
+  function addTodo(newTitle: string) {
+    const todo: Todo = { id: counter, title: newTitle, completed: false };
     setCounter(counter + 1);
-    setTodos(pre => [...pre, todo]);
+    setTodos(prev => [...prev, todo]);
   }
 
   function handleInput(event: React.ChangeEvent<HTMLInputElement>) {
@@ -70,7 +74,11 @@ export const AddToDo: React.FC = () => {
       return;
     }
 
-    addTodo(title);
+    if (onAdd) {
+      onAdd(title);
+    } else {
+      addTodo(title);
+    }
 
     setTitle('');
   }
@@ -79,11 +87,11 @@ export const AddToDo: React.FC = () => {
     <div>
       <form onSubmit={handleSubmit}>
         <label>Todo: 
-          <input type='text' value={title} onChange={handleInput}/>
+          <input type='text' placeholder="Add todo" value={title} onChange={handleInput}/>
         </label>
         <button type="submit">Add</button>
       </form>
-      <ToDoList todos={todos} />
+      {!onAdd && todos.length > 0 && <ToDoList todos={todos} />}
     </div>
   );
 }; 
