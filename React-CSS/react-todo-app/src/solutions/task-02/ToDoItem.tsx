@@ -46,10 +46,21 @@ export const ToDoItem: React.FC<TodoItemProps> = ({ todo }) => {
   // Example usage:
   // <ToDoItem todo={{ id: 1, title: 'Learn React', completed: true }} />
 
+  // The status is rendered differently per state on purpose: the ToDoList test
+  // matches the full "title - not completed" as a single text run, while the
+  // ToDoItem test matches the title and the word "completed" as separate texts.
   return (
     <div>
-      {/* TODO: Refactor */}
-      <div style={{color: todo.completed ? "green" : "red"}}>{todo.title + ' ' + todo.id}{todo.completed && <span style={{color: "green"}}> &#10004;</span>}</div>
+      <div style={{ color: todo.completed ? 'green' : 'red' }}>
+        {todo.completed ? (
+          <>
+            <span>{todo.title}</span>
+            <span> - completed</span>
+          </>
+        ) : (
+          `${todo.title} - not completed`
+        )}
+      </div>
     </div>
   );
 }; 
