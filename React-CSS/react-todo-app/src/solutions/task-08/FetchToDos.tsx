@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Todo } from '../../types';
+import { ToDoList } from '../task-01/ToDoList';
 
 /**
  * Task 8: FetchToDos Component
@@ -62,6 +63,26 @@ import { Todo } from '../../types';
  * - Handle loading and error states
  */
 export const FetchToDos: React.FC = () => {
+  const [todos, setTodos] = useState<Todo[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    async function fetchData() {
+      try { 
+        const response = await fetch('https://jsonplaceholder.typicode.com/todos');
+        const data = await response.json();
+        setTodos(data);
+        setLoading(false);
+      } catch (error) {
+        setError(error instanceof Error ? error.message : String(error));
+        setLoading(false);
+      }
+    }
+    
+    fetchData();
+  }, [])
+  
   // TODO: Implement the FetchToDos component
   // 
   // Requirements:
@@ -92,8 +113,9 @@ export const FetchToDos: React.FC = () => {
   return (
     <div>
       {/* TODO: Replace this with your implementation */}
-      <h4>Fetch ToDos Component</h4>
-      <p>Implement data fetching with useEffect here</p>
+      {loading && <p>Loading...</p>}
+      {error && <p>Error: {error}</p>}
+      {todos && <ToDoList todos={todos} />}
     </div>
   );
 }; 
