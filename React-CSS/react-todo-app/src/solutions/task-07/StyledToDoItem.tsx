@@ -2,6 +2,7 @@ import React from 'react';
 import { TodoItemProps } from '../../types';
 import './StyledToDoItem.css';
 
+
 /**
  * Task 7: StyledToDoItem Component
  * 
@@ -71,10 +72,15 @@ export const StyledToDoItem: React.FC<TodoItemProps> = ({ todo }) => {
   // .todo-item.completed { /* completed styles */ }
 
   return (
-    <div>
-      {/* TODO: Replace this with your implementation */}
-      <h4>Styled ToDo Item Component</h4>
-      <p>Implement conditional styling here</p>
+    <div className={`todo-item ${todo.completed ? 'completed' : ''}`}>
+      {todo.completed ? (
+        <>
+          <span>{todo.title}</span>
+          <span> - completed</span>
+        </>
+      ) : (
+        `${todo.title} - not completed`
+      )}
     </div>
   );
 }; 
